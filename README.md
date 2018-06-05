@@ -8,7 +8,7 @@ The audio is made with the macOS `say` command.
 Requirements
 ------------
 
-* macOS 10.7
+* macOS 10.7 or Later
 * python3
 * numpy
 
@@ -40,6 +40,7 @@ $ python assigncheck.py -n 12 --voice Ava --split
 ```
 
 
+Help:
 
 ```
 $ python assigncheck.py -h
