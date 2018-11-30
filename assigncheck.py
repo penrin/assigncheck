@@ -123,6 +123,18 @@ for i in range(num_channels):
 
 data_multi *= gain
 
+
+## limit amplitude
+if np.max(np.abs(data_multi)) > 1.:
+    satu_max =  20 * np.log10(np.max(np.abs(data_multi)))
+    print('%.1f dB saturation detected' % satu_max)
+    
+    # limiter
+    threshold = 1.
+    i_satu = np.where(np.abs(data_multi) > threshold)
+    data_multi[i_satu] = np.sign(data_multi[i_satu]) * threshold
+
+
 ## Write
 if args.split == True:
     
