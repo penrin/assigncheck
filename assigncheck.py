@@ -107,7 +107,7 @@ os.remove(workfilename)
 
 
 ## Combine
-print('Writing...', end=''); sys.stdout.flush()
+print('Editing...', end=''); sys.stdout.flush()
 
 len_output = 0
 for i in range(num_channels):
@@ -123,19 +123,24 @@ for i in range(num_channels):
 
 data_multi *= gain
 
+print('Done')
+
 
 ## limit amplitude
 if np.max(np.abs(data_multi)) > 1.:
     satu_max =  20 * np.log10(np.max(np.abs(data_multi)))
-    print('%.1f dB saturation detected' % satu_max)
+    print('%.1f dB saturation detected!' % satu_max, end='')
     
     # limiter
     threshold = 1.
     i_satu = np.where(np.abs(data_multi) > threshold)
     data_multi[i_satu] = np.sign(data_multi[i_satu]) * threshold
+    print(' --> limited to 0 dBFS' % satu_max)
 
 
 ## Write
+print('Writing...', end=''); sys.stdout.flush()
+
 if args.split == True:
     
     digit = len(str(num_channels))
