@@ -73,6 +73,7 @@ parser.add_argument('-o', type=str, default='out', help='output filename')
 parser.add_argument('-t', type=float, default=1., help='interval (sec), default=1')
 parser.add_argument('-r', type=int, default=48000, help='sample rate (Hz), default=48000')
 parser.add_argument('-w', type=int, default=3, help='sample width (Byte), default=3')
+parser.add_argument('-g', type=float, default=0., help='gain (dB), default=0')
 parser.add_argument('-s', '--split', action='store_true', help='split to mono')
 parser.add_argument('-v', '--voice', type=str, help='voice name (you can search with $ say -v \'?\')')
 args = parser.parse_args()
@@ -81,6 +82,7 @@ num_channels = args.n
 interval_second = args.t
 samplerate = args.r
 samplewidth = args.w
+gain = 10 ** (args.g / 20)
 interval = int(samplerate * interval_second)
 
 
@@ -119,6 +121,7 @@ for i in range(num_channels):
     end2 = end1 + data[i].shape[0]
     data_multi[i, end1:end2] = data[i]
 
+data_multi *= gain
 
 ## Write
 if args.split == True:
